@@ -6,7 +6,7 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:12:02 by aokhapki          #+#    #+#             */
-/*   Updated: 2025/05/11 18:23:27 by aokhapki         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:24:53 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,36 @@ bool safeGetline(std::string& input) {
 	return true;
 }
 
+bool promptAndRead(const std::string& prompt, std::string& field) {
+	while (true) {
+		std::cout << prompt;
+		if (!safeGetline(field)) return false;
+		if (!field.empty()) return true;
+		std::cout << "This field cannot be empty.\n";
+	}
+}
+
+bool promptAndReadDigits(const std::string& prompt, std::string& field) {
+	while (true) {
+		std::cout << prompt;
+		if (!safeGetline(field)) return false;
+		if (!field.empty() && field.find_first_not_of("0123456789") == std::string::npos)
+			return true;
+		std::cout << "Phone number must be digits only and not empty.\n";
+	}
+}
+
 void Contact::setContact()
 {
-	std::cout << "First name: ";
-	if (!safeGetline(firstName)) return;
-	std::cout << "Last name: ";
-	if (!safeGetline(lastName)) return;
-	std::cout << "Nickname: ";
-	if (!safeGetline(nickName)) return;
-	std::cout << "Phone number: ";
-	if (!safeGetline(phoneNumber)) return;
-	std::cout << "Darkest secret: ";
-	if (!safeGetline(darkestSecret)) return;
-	
+	if (!promptAndRead("First name: ", firstName)) return;
+	if (!promptAndRead("Last name: ", lastName)) return;
+	if (!promptAndRead("Nickname: ", nickName)) return;
+	if (!promptAndReadDigits("Phone number: ", phoneNumber)) return;
+	if (!promptAndRead("Darkest secret: ", darkestSecret)) return;
 }
-/**
- * sets the width parameter of the stream out or in to exactly n
+
+/** 
+ * 1sets the width parameter of the stream out or in to exactly n
  */
 void Contact::displayBrief(int i) const
 {
