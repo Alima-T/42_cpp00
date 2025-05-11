@@ -6,12 +6,11 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 09:43:19 by aokhapki          #+#    #+#             */
-/*   Updated: 2025/05/06 16:21:43 by aokhapki         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:27:45 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <cctype> 
 
 int main(int ac, char **av)
 {
