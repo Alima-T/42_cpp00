@@ -6,15 +6,48 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:12:02 by aokhapki          #+#    #+#             */
-/*   Updated: 2025/05/11 19:24:53 by aokhapki         ###   ########.fr       */
+/*   Updated: 2025/05/11 22:08:07 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cctype>
 #include <iomanip>
 #include "Contact.hpp"
+//<cctype>  for character classification and manipulation 
+//<iomanip> for formatting output
 
-bool safeGetline(std::string& input) {
+bool isStrictAlpha(const std::string &str) {
+	if (str.empty()) return false;
+	for (size_t i = 0; i < str.length(); i++) {
+		if (!isalpha(str[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool isStrictDigits(const std::string &str) {
+	if (str.empty()) return false;
+	for (size_t i = 0; i < str.length(); i++) {
+		if (!isdigit(str[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool isNoWhitespace(const std::string &str) {
+	if (str.empty()) return false;
+	for (size_t i = 0; i < str.length(); i++) {
+		if (isspace(str[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool safeGetline(std::string &input) {
 	if (!std::getline(std::cin, input)) {
 		std::cout << "\nInput interrupted. Exiting.\n";
 		return false;
@@ -22,37 +55,32 @@ bool safeGetline(std::string& input) {
 	return true;
 }
 
-bool promptAndRead(const std::string& prompt, std::string& field) {
+bool promptAndReadAlpha(const std::string &prompt, std::string &field) {
 	while (true) {
 		std::cout << prompt;
 		if (!safeGetline(field)) return false;
-		if (!field.empty()) return true;
-		std::cout << "This field cannot be empty.\n";
+		if (isStrictAlpha(field)) return true;
+		std::cout << "ERROR: Only letters (A-Z/a-z) allowed. No spaces/numbers/symbols.\n";
 	}
 }
 
-bool promptAndReadDigits(const std::string& prompt, std::string& field) {
+bool promptAndReadDigits(const std::string &prompt, std::string &field) {
 	while (true) {
 		std::cout << prompt;
 		if (!safeGetline(field)) return false;
-		if (!field.empty() && field.find_first_not_of("0123456789") == std::string::npos)
-			return true;
-		std::cout << "Phone number must be digits only and not empty.\n";
+		if (isStrictDigits(field)) return true;
+		std::cout << "ERROR: Only digits allowed. No spaces/symbols.\n";
 	}
 }
 
-void Contact::setContact()
-{
-	if (!promptAndRead("First name: ", firstName)) return;
-	if (!promptAndRead("Last name: ", lastName)) return;
-	if (!promptAndRead("Nickname: ", nickName)) return;
+void Contact::setContact() {
+	if (!promptAndReadAlpha("First name: ", firstName)) return;
+	if (!promptAndReadAlpha("Last name: ", lastName)) return;
+	if (!promptAndReadAlpha("Nickname: ", nickName)) return;
 	if (!promptAndReadDigits("Phone number: ", phoneNumber)) return;
-	if (!promptAndRead("Darkest secret: ", darkestSecret)) return;
+	if (!promptAndReadAlpha("Darkest secret: ", darkestSecret)) return;
 }
 
-/** 
- * 1sets the width parameter of the stream out or in to exactly n
- */
 void Contact::displayBrief(int i) const
 {
 	std::cout << std::setw(10) << i << "|";
@@ -73,10 +101,5 @@ void Contact::displayFull() const
 	std::cout << "Last name: " << lastName<< std::endl;
 	std::cout << "Nick name: " << nickName << std::endl;
 	std::cout << "Phone number: " << phoneNumber << std::endl;
-	std::cout << "Darkest secret: " << darkestSecret << std::endl;	
-}
-
-bool Contact::isEmpty() const
-{
-	return firstName.empty();
+	std::cout << "Darkest secret: " << darkestSecret << std::endl;    
 }
