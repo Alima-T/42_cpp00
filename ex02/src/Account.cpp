@@ -6,7 +6,7 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:13:33 by aokhapki          #+#    #+#             */
-/*   Updated: 2025/05/11 18:00:42 by aokhapki         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:07:54 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ int Account::_totalNbWithdrawals = 0;
 // Private constructor (not used, but we write it to prevent account creation without an initial deposit.)
 Account::Account(void) {}
 
-// // Time display
-// void Account::_displayTimestamp(void) 
-// {
-// 	std::time_t now = std::time(nullptr);
-// 	std::tm *ptm = std::localtime(&now);
-// 	char buffer[20];
-// 	std::strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", ptm);
-// 	std::cout << buffer;
-// }
-
-// Time display for testing
-void Account::_displayTimestamp(void) {
-    std::cout << "[19920104_091532] ";
+// Time display
+void Account::_displayTimestamp(void) 
+{
+	std::time_t now = std::time(nullptr);
+	std::tm *ptm = std::localtime(&now);
+	char buffer[20];
+	std::strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", ptm);
+	std::cout << buffer;
 }
+
+// // Time display for testing
+// void Account::_displayTimestamp(void) {
+//     std::cout << "[19920104_091532] ";
+// }
 
 /**
  * Constructor, assigns a unique _accountIndex based on the current number of accounts.
