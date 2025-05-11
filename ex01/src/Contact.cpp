@@ -6,12 +6,12 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:12:02 by aokhapki          #+#    #+#             */
-/*   Updated: 2025/05/08 22:16:36 by aokhapki         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:23:27 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <iomanip> //to manage input and output formatting
+#include <iomanip>
 #include "Contact.hpp"
 
 bool safeGetline(std::string& input) {
@@ -36,8 +36,10 @@ void Contact::setContact()
 	if (!safeGetline(darkestSecret)) return;
 	
 }
-
-void Contact::displayBrief(int i) const//sets the width parameter of the stream out or in to exactly n
+/**
+ * sets the width parameter of the stream out or in to exactly n
+ */
+void Contact::displayBrief(int i) const
 {
 	std::cout << std::setw(10) << i << "|";
 	std::string fields[3] = {firstName, lastName, nickName};

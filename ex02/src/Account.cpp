@@ -6,7 +6,7 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:13:33 by aokhapki          #+#    #+#             */
-/*   Updated: 2025/05/11 18:07:54 by aokhapki         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:25:08 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 #include <ctime> 
 #include "Account.hpp"
 
-// Static members
+/**
+ * Static members
+ */
+
 int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
 int Account::_totalNbDeposits = 0;
 int Account::_totalNbWithdrawals = 0;
 
-// Private constructor (not used, but we write it to prevent account creation without an initial deposit.)
+/**
+ * Private constructor (not used, but we write it to prevent account creation without an initial deposit.)
+ */
 Account::Account(void) {}
 
-// Time display
 void Account::_displayTimestamp(void) 
 {
 	std::time_t now = std::time(nullptr);
@@ -40,14 +44,14 @@ void Account::_displayTimestamp(void)
 
 /**
  * Constructor, assigns a unique _accountIndex based on the current number of accounts.
-Increments:
-_nbAccounts (total number of accounts)
-_totalAmount (adds new deposit to global total)
-Initializes:
-_amount to the initial_deposit
-_nbDeposits and _nbWithdrawals to 0
-Logs the account creation with timestamp.
-using a special C++ feature called an initializer list.
+ * Increments:
+ * _nbAccounts (total number of accounts)
+ * _totalAmount (adds new deposit to global total)
+ * Initializes:
+ * _amount to the initial_deposit
+ * _nbDeposits and _nbWithdrawals to 0
+ * Logs the account creation with timestamp.
+ * using a special C++ feature called an initializer list.
  */ 
 
 Account::Account(int initial_deposit)
@@ -63,7 +67,10 @@ Account::Account(int initial_deposit)
 			  << ";amount:" << _amount
 			  << ";created" << std::endl;
 }
-// DESTRUCTOR Called when an account object is destroyed. Logs account closure with its index and current amount.
+
+/**
+ * DESTRUCTOR Called when an account object is destroyed. Logs account closure with its index and current amount.
+ */
 Account::~Account(void) 
 {
 	_displayTimestamp();
@@ -83,8 +90,7 @@ int Account::getNbWithdrawals(void) { return _totalNbWithdrawals; }
 
 int Account::getTotalAmount(void) { return _totalAmount; }
 
-/**
- * Static summary display, shows summary info across all accounts. Called in tests.cpp after major operations.
+/** Static summary display, shows summary info across all accounts. Called in tests.cpp after major operations.
  */
 void Account::displayAccountsInfos(void)
 {
@@ -115,12 +121,9 @@ void Account::displayStatus(void) const
 int Account::checkAmount(void) const { return _amount; }
 
 /**
-* Logs the deposit intent with previous amount (p_amount).
-Updates:
-Individual account amount.
-Local and global deposit counters.
-Global total.
-Logs updated state.
+ * Logs the deposit intent with previous amount (p_amount).
+ * Updates: Indiv account amount/Local&global deposit counters/Global total.
+ * Logs updated state.
  */
 void Account::makeDeposit(int deposit) {
 	_displayTimestamp();
@@ -138,14 +141,11 @@ void Account::makeDeposit(int deposit) {
 }
 
 /**
-* Checks if there’s enough money.
-If not enough, logs withdrawal:refused and returns false.
-If enough, updates:
-Balance
-Withdrawal counters
-Global total
-Logs the transaction and returns true.
-*/
+ * Checks if there’s enough money.
+ * If not enough, logs withdrawal:refused and returns false.
+ * If enough, updates: Balance / Withdrawal counters/Global total
+ * Logs the transaction and returns true.
+ */
 bool Account::makeWithdrawal(int withdrawal) 
 {
 	_displayTimestamp();
